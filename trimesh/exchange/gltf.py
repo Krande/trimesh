@@ -154,7 +154,8 @@ def export_glb(
         scene,
         include_normals=None,
         unitize_normals=False,
-        tree_postprocessor=None):
+        tree_postprocessor=None,
+        buffer_postprocessor=None):
     """
     Export a scene as a binary GLTF (GLB) file.
 
@@ -189,6 +190,9 @@ def export_glb(
     # allow custom postprocessing
     if tree_postprocessor is not None:
         tree_postprocessor(tree)
+
+    if buffer_postprocessor is not None:
+        buffer_postprocessor(buffer_items, tree)
 
     # A bufferView is a slice of a file
     views = _build_views(buffer_items)
